@@ -9,6 +9,11 @@
 
 using namespace std;
 
+//Refer to comments to the room.cpp file for more information
+
+//message that launches when game starts
+//asks player if they would like to read the instructions; 
+//instructions are activated when player inputs "Y"
 void welcome () {
 	cout << "Welcome to the Adventure Command Line Game!" << endl;
 	cout << "---------------------------------------------------------------" << endl;
@@ -48,6 +53,7 @@ void welcome () {
 	sleep(1);
 }
 
+//sets room names
 void makeRooms() {
 	lobby.setName("Lobby");
 	hallway.setName("Hallway");
@@ -64,6 +70,8 @@ void makeRooms() {
 
 }
 
+//links rooms and creates the map
+//links are created by setting the address of the room that leads up to the next room in the given direction
 void mapRooms() {
 	hallway.mapDownto(&lobby);
 	lobby.mapUpto(&hallway);
@@ -90,6 +98,9 @@ void mapRooms() {
 
 }
 
+//a random integer is generated
+//a princess could be in any of the six rooms below
+//take the mod of the generated int and use a switch statement to decide where to place the princess
 void setPrincess() {
 	srand((unsigned)time(NULL));
 	int randP = rand() % 6;
@@ -117,6 +128,9 @@ void setPrincess() {
 	}
 }
 
+//a random integer is generated
+//a monster could be in any of the seven rooms below
+//take the mod of the generated int and use a switch statement to decide where to place the monster
 void setMonster() {
 	srand((unsigned)time(NULL));
 	int randM = rand() % 7;
@@ -147,10 +161,14 @@ void setMonster() {
 	}
 }
 
+//message that asks players where to go next
+//appears after they have been informed of their current location or if they request for a map
 void prompt() {
 	cout << "Where do you want to go?: ";
 }
 
+//prints the game over sequences
+//takes two parameters and judges which endgame message to send out based on result
 void endGame(int w, int l) {
 	if (win) {
 		cout << "---------------------------------------------------------------" << endl;
@@ -172,6 +190,10 @@ void endGame(int w, int l) {
 	cout << "Thank you for playing!" << endl;
 }
 
+//what happens after a player tells the command line where they want to go
+//checks if the princess is in the room 
+//sets flag for defeat or victory
+//tells program to keep going if princess and monster aren't present
 void processes(Room* p) {
 	cout << "You have entered the " << p -> getName() << "." << endl;
 	sleep(1);
@@ -188,6 +210,8 @@ void processes(Room* p) {
 	}
 }
 
+//appears when user types "M" in the command prompt
+//prints out a map of the castle and a hint
 void displayMap() {
 	cout << endl;
 	cout << "Map of the Castle: " << endl;
